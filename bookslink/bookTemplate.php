@@ -165,6 +165,7 @@ if (!empty($_SESSION['user_id']) && $book_identifier > 0) {
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -180,6 +181,8 @@ if (!empty($_SESSION['user_id']) && $book_identifier > 0) {
   <?php include __DIR__ . '/../navbar.php'; ?>
 
   <div class="book-hero" style="--bg-image: url('../<?php echo $book['cover_image']; ?>');">
+
+    <a href="/panay-tales-library/MoreTales.php" class="back-button"><h4>⟪</h1></a>
     
     <!-- Gradient overlay layer -->
     <div class="gradient-layer"></div>
