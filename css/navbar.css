@@ -1,0 +1,90 @@
+/* Navbar container */
+.navbar-background {
+  background-color: #fdfdfd;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 30px;
+  gap: 1rem;
+  justify-content: space-between;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  position: sticky;   
+  top: 0;             
+  z-index: 1000; 
+}
+
+/* Logo styling */
+.Logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff6600;
+}
+
+/* Links container */
+.nav-links {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+
+/* Sign-in button style */
+.nav-links a.sign-in {
+  background-color: #ff6600;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for sign-in */
+.nav-links a.sign-in:hover {
+  background-color: #dd3f00;
+  color: #fff; 
+}
+
+/* Active state for sign-in */
+.nav-links a.sign-in.active-page {
+  background-color: #dd3f00;
+  border: none; /* remove underline effect */
+  pointer-events: none;
+}
+
+/* Search form inside navbar */
+/* Removed nav bar search (moved to More Tales section) */
+
+/* accessible helper (visually hidden) */
+
+
+/* Default link style */
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: normal;
+  transition: color 0.2s ease;
+}
+
+/* Hover effect */
+.nav-links a:hover {
+  color: #ff946a;
+}
+
+/* Active page link */
+.nav-links a.active-page {
+  font-weight: bold;
+  color: #dd3f00;
+  pointer-events: none;   /* disables clicking on current page */
+  cursor: default;
+}
+
+.nav-links a.active-page {
+  font-weight: bold;
+  color: #dd3f00;
+  border-bottom: 2px solid #dd3f00; /* underline effect */
+}

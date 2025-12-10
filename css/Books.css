@@ -1,0 +1,165 @@
+html, body {
+  font-family: 'Helvetica Neue', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(19, 13, 9);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.about-page1 {
+  position: relative;
+  height: 100vh;
+  background-color: rgb(19, 13, 9);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom center;
+  margin: 0;
+  padding: 0;
+}
+
+.about-page1::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(19, 13, 9, 0.2) 0%,
+    rgba(0, 0, 0, 0.8) 40%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.navbar2 {
+  position: absolute;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.089);
+  z-index: 3;
+  padding: 0.5rem 1rem;
+}
+
+.nav2-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  gap: 1rem;
+}
+
+.nav2-links a {
+  flex: 1;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.carousel-container {
+  position: absolute;
+  bottom: 15vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  max-width: 1400px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  z-index: 3;
+  padding: 3rem 0;
+}
+
+.carousel {
+  display: flex;
+  gap: 2vw;
+  justify-content: center;
+  will-change: transform;
+  transition: transform 0.3s ease-in-out;
+  padding: 0 8vw;
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 16vw;
+  max-width: 340px;
+  min-width: 140px;
+  aspect-ratio: 8.5 / 11;
+  background: transparent;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.12rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transform-origin: center center;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.2s ease, opacity 0.25s ease;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+.card-title {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.carousel .card:not(.active) {
+  opacity: 1;
+  transform: scale(0.96);
+}
+
+.bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  background-color: transparent;
+  z-index: 2;
+}
+
+.card.active {
+  transform: scale(1.2);
+  background-color: transparent;
+  z-index: 5;
+  opacity: 1;
+}
+
+.card.fade-out {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.card.fade-in {
+  opacity: 0;
+  transform: scale(0.85);
+  animation: fadeInScale 0.3s forwards;
+}
+
+@keyframes fadeInScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

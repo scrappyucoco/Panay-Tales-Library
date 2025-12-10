@@ -1,0 +1,307 @@
+/* Sign In Page Styles */
+:root {
+  --primary: #ff6600;
+  --primary-dark: #dd3f00;
+  --text-dark: #4a3b2d;
+  --border: #e8e8e8;
+  --bg-light: #fafafa;
+  --trans: all 0.3s ease;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: oklch(97.356% 0.01586 58.432);
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.signin-container {
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.signin-card {
+  background: #fdfdfd;
+  width: 100%;
+  max-width: 400px;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.signin-header { margin-bottom: 30px; text-align: center; }
+
+.signin-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+
+.signin-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.error-message {
+  background: #fee;
+  border: 2px solid #f88;
+  border-radius: 6px;
+  padding: 12px;
+  color: #c33;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  transition: var(--trans);
+  background: var(--bg-light);
+  color: #2d2d2d;
+}
+
+.form-group input:hover {
+  border-color: #ffdbcc;
+  background: #fff9f5;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(255, 102, 0, 0.12);
+}
+
+.form-group input::placeholder { color: #b0b0b0; }
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--primary);
+  font-weight: 600;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.toggle-password:hover { opacity: 1; }
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-top: 12px;
+  gap: 10px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--text-dark);
+  user-select: none;
+  font-weight: 500;
+}
+
+.remember-me input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+  border-radius: 4px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: var(--trans);
+}
+
+.remember-me input:hover { border-color: var(--primary); }
+
+.forgot-password {
+  text-decoration: none;
+  color: var(--primary);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+/* Sign In Button */
+.signin-btn {
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #ff6600 0%, #ff7a1a 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Inter', sans-serif;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.signin-btn:hover {
+  background: linear-gradient(135deg, #dd3f00 0%, #ff6600 100%);
+  box-shadow: 0 6px 25px rgba(255, 102, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.signin-btn:active {
+  transform: translateY(0);
+}
+
+.signin-btn span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Divider */
+.signin-divider {
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+  margin: 25px 0;
+  font-weight: 500;
+  position: relative;
+}
+
+.signin-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ddd, transparent);
+  z-index: 1;
+}
+
+.signin-divider span {
+  position: relative;
+  z-index: 2;
+  background-color: #ffffff;
+  padding: 0 15px;
+  display: inline-block;
+}
+
+.create-account-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--trans);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.create-account-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary), #ff7a1a);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.create-account-btn:hover {
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(255, 102, 0, 0.3);
+  border-color: #ff7a1a;
+}
+
+.create-account-btn:hover::before { left: 0; }
+
+.signin-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #999;
+  padding: 20px;
+  border-top: 1px solid var(--border);
+  background: #fdfdfd;
+}
+
+.signin-footer a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.signin-footer a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .signin-card { padding: 35px 25px; }
+  .signin-title { font-size: 1.8rem; }
+  .signin-subtitle { font-size: 0.9rem; }
+  .form-group input { padding: 11px 12px; font-size: 0.9rem; }
+  .signin-btn, .create-account-btn { padding: 12px 20px; font-size: 0.95rem; }
+  .form-options { flex-direction: column; gap: 12px; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .signin-card { padding: 30px 20px; border-radius: 10px; }
+  .signin-title { font-size: 1.5rem; }
+  .signin-subtitle { font-size: 0.85rem; }
+  .signin-form { gap: 15px; }
+  .form-group label { font-size: 0.85rem; }
+  .form-group input { padding: 10px 12px; font-size: 0.9rem; }
+  .signin-btn, .create-account-btn { padding: 12px 18px; font-size: 0.9rem; }
+}

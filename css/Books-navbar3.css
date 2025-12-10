@@ -1,0 +1,29 @@
+.Featured {
+  text-decoration: none;
+  font-weight: normal;
+  color: black;
+  transition: color 0.2s ease;
+}
+.More-Tales {
+  text-decoration: none;
+  font-weight: normal;
+  color: black;
+  transition: color 0.2s ease;
+}
+
+
+/* Hover effect */
+.nav3-links a:hover {
+  color: #ff946a;
+}
+
+/* Active page link */
+.My-List {
+  font-weight: bold;
+  color: #ffffff;
+  pointer-events: none;   /* disables clicking on current page */
+  background-color: #dd3f00;
+  border-radius: 2rem;
+  cursor: default;
+  text-decoration: none;
+}

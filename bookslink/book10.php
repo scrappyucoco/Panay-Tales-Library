@@ -1,0 +1,11 @@
+<?php
+include '../booksData.php';
+
+$book = $books['Polobulac']; // select the book
+$paragraph = " The Fall of Polobulac tells of a once-beautiful island called Polobulac, also known as the “Isle of Flowers,” whose shores teemed with lush gardens, abundant fruit, sparkling fountains and whose people lived in joy, free from sorrow or care. The inhabitants of Polobulac were initially simple and happy, celebrating life with song, dance, and contentment. \n \nHowever, as their prosperity grew, so did their pride: they began to treat neighboring islands and their people with contempt, condescension and scorn. Storm after storm came as ominous warnings: voices from the clouds representing various sins  thundered against the islanders. The first voice came declaring itself “Pride” and warned them to avoid pride or perish. \n \nYet despite the fear these voices stirred, when morning came the people returned to their prideful ways. As their riches increased and envy, greed, desire, covetousness, anger, gluttony and sloth crept in, the successive warnings from the heavens “Covetousness,” “Evil Desire,” “Anger,” “Gluttony,” “Envy,” and “Sloth”. went unheeded. Finally, the island’s moral decay triggered catastrophe: a great tempest descended, and Polobulac was consumed by seven huge pillars of flame. \n \nWhen the storms subsided and the sky cleared, Polobulac no longer existed in its place floated seven blackened rocks, marking where the once-beautiful island had stood. The tale frames the destruction of Polobulac as divine punishment for the people’s hubris, greed, envy, and moral decay. \n \nIn this way, The Fall of Polobulac serves as a moral parable, warning against the dangers of sin, especially pride, greed, envy, and sloth and reminding listeners that prosperity without humility and virtue can lead to ruin. ";
+$content =  "<p>" . nl2br(htmlspecialchars($paragraph)) . "</p><br>".
+'<iframe width="560" height="315" src="https://www.youtube.com/embed/GxWrOvycHVw?si=xHnt_XwjbExeD30D" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+;
+
+include 'bookTemplate.php';  // load the design
+?>
