@@ -44,6 +44,10 @@ html, body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.089);
   z-index: 3;
   padding: 0.5rem 1rem;
+
+  opacity: 0;
+  animation: fadeDown 0.8s ease-out forwards;
+  animation-delay: 0.3s;
 }
 
 .nav2-links {
@@ -80,6 +84,11 @@ html, body {
   justify-content: center;
   z-index: 3;
   padding: 3rem 0;
+
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 0.3s;
+
 }
 
 .carousel {
@@ -161,5 +170,28 @@ html, body {
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+/* Carousel Animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 50px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0px);
   }
 }

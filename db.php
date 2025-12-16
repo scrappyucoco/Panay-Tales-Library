@@ -5,5 +5,5 @@ $wage ='';
 $errorMessage = '';
 $successMessage = '';
 
-$connection = new mysqli("localhost", "root", "ItcPasswordSQL2", "panaytalesdb");
+$connection = new mysqli("localhost", "root", "", "panaytalesdb", 3307);
 ?>
