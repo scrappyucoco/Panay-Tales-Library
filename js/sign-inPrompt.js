@@ -1,7 +1,3 @@
-/**
- * Book Template Modal Handler
- * Manages sign-in modal interactions and form validation
- */
 
 function openSigninModal(customMessage) {
   const overlay = document.getElementById('signin-overlay');
@@ -47,7 +43,7 @@ function closeSigninModal() {
   // OK -> go to sign-in with redirect back to the same page
   yesBtn.addEventListener('click', () => {
     const redirectUrl = encodeURIComponent(window.location.href);
-    window.location.href = '/PanayTales/sign-in.php?redirect=' + redirectUrl;
+    window.location.href = '/Panay-Tales-Library/sign-in.php?redirect=' + redirectUrl;
   });
 
   // No thanks -> close overlay

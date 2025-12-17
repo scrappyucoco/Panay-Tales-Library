@@ -46,7 +46,7 @@ html, body {
   padding: 0.5rem 1rem;
 
   opacity: 0;
-  animation: fadeDown 0.8s ease-out forwards;
+  animation: fadeDown 0.5s ease-out forwards;
   animation-delay: 0.3s;
 }
 
@@ -86,7 +86,7 @@ html, body {
   padding: 3rem 0;
 
   opacity: 0;
-  animation: fadeUp 0.8s ease-out forwards;
+  animation: fadeUp 0.5s ease-out forwards;
   animation-delay: 0.3s;
 
 }

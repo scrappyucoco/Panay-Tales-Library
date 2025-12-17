@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="css/MyList.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/Books-navbar3.css">
-  <link rel="stylesheet" href="css/BookTemplateStyle.css">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -19,7 +18,7 @@
   <?php include 'booksData.php'; ?>
 
   <?php
-    // show user's favourites (move from book template)
+    // show user's favourites
     if (session_status() === PHP_SESSION_NONE) {
       session_start();
     }
@@ -27,7 +26,7 @@
     $user_favourites = [];
     if (!empty($_SESSION['user_id'])) {
       $uid = (int) $_SESSION['user_id'];
-// READ: Fetch the current user's favourites, joined to the books table to obtain title/cover/link.
+// READ: Take the current user's favourites.
 $favStmt = $connection->prepare(
   "SELECT f.book_id, b.title, b.cover_image, b.link FROM favourites f JOIN books b ON f.book_id = b.books_id WHERE f.user_id = ? ORDER BY f.created_at DESC"
 );
@@ -53,8 +52,6 @@ $favStmt = $connection->prepare(
       <input type="text" placeholder="Search for tales">
       <button type="submit">Search</button>
     </div>
-
-    
 
    <?php $currentPage = basename($_SERVER['PHP_SELF']); ?>
 
@@ -121,7 +118,7 @@ $favStmt = $connection->prepare(
   text-align: center;
 }
 
-/* Favourites row*/
+/* Favourites */
 .favs-row {
   display: flex;
   gap: 0.75rem;
@@ -135,7 +132,7 @@ $favStmt = $connection->prepare(
   flex-direction: row;
 }
 
-/* Favourite item container */
+/* Favourite item */
 .fav-item {
   display: inline-flex;
   flex-direction: column;
@@ -184,7 +181,7 @@ $favStmt = $connection->prepare(
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Title overlay */
+/* Book Title */
 .fav-title {
   left: 50%;
   bottom: 10px;
@@ -206,7 +203,6 @@ $favStmt = $connection->prepare(
   position: absolute;
 }
 
-/* Hover states */
 .fav-item:hover .fav-cover {
   transform: scale(1.12);
   box-shadow: 0 8px 22px rgba(0,0,0,0.22);
@@ -217,7 +213,6 @@ $favStmt = $connection->prepare(
   background: rgba(0,0,0,0.62);
 }
 
-/* Focus state */
 .fav-item:focus-visible {
   outline: 3px solid rgba(221,63,0,0.8);
   outline-offset: 2px;

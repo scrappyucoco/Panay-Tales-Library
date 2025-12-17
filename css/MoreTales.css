@@ -14,6 +14,7 @@ main {
   height: 100%;
   display: flex;
   justify-content: center;
+  animation: fadeInScale 0.5s ease-out;
 }
 
 /* Left Side Panel */
@@ -24,6 +25,7 @@ main {
   background-color: transparent;
   overflow: hidden;
   z-index: 1;
+  animation: fadeInScale 0.5s ease-out;
 }
 
 /* Search Bar */
@@ -36,6 +38,7 @@ main {
   padding: 0.5rem 1rem;
   display: flex;
   gap: 0.5rem;
+  animation: fadeDown 0.5s ease-out;
 }
 
 .searchBar input[type="text"] {
@@ -69,6 +72,7 @@ main {
   border-radius: 2rem;
   padding: 0.5rem 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.089);
+  animation: fadeDown 0.5s ease-out 0.1s backwards;
 }
 
 .nav3-links {
@@ -100,6 +104,7 @@ main {
   border-radius: 8px;
   padding: 1rem;
   transition: opacity 0.4s ease;
+  animation: fadeUp 0.5s ease-out 0.2s backwards;
 }
 
 /* Search Results Section */
@@ -115,6 +120,7 @@ main {
   padding: 0px;
   padding-top: 34px;
   transition: opacity 0.4s ease;
+  animation: fadeUp 0.5s ease-out 0.2s backwards;
 }
 
 /* Genre Blocks */
@@ -126,6 +132,7 @@ main {
   background: #ffffff;
   padding-left: 20px;
   padding-bottom: 3rem;
+  animation: fadeUp 0.5s ease-out;
 }
 
 .searchResults {
@@ -156,6 +163,7 @@ main {
   flex-wrap: wrap;
   gap: 3rem;
   padding: 0 69px;
+  animation: fadeUp 0.5s ease-out 0.1s backwards;
 }
 
 /* Book Cards */
@@ -174,6 +182,7 @@ main {
   justify-content: center;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeUp 0.5s ease-out;
 }
 
 .book:hover {
@@ -207,4 +216,33 @@ a .book-title {
   text-decoration: none;
 }
 
-/* Highlighted Search Matches */
+@keyframes fadeInScale {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+

@@ -18,8 +18,6 @@
 
   <main>
     <div class="elements">
-
-      <!-- LEFT -->
       <div class="left">
         <div class="left-inner">
           <h1 class="tagline">Preserving the legends of Panay, one tale at a time</h1>
@@ -33,8 +31,6 @@
           <a href="Books.php" class="read-btn">Read now!</a>
         </div>
       </div>
-
-      <!-- RIGHT -->
       <div class="right">
         <div class="foreground-mask"></div>
         <div class="shadow-layer"></div>
@@ -43,7 +39,6 @@
           <img src="images/book-butt.png" alt="Book Button">
         </a>
       </div>
-
     </div>
   </main>
 </body>

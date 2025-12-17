@@ -2,12 +2,9 @@
 session_start();
 require_once __DIR__ . '/../db.php';
 
-// Use a flag & message to display sign-in modal overlay when server rejects because user is not signed in
 $post_error = '';
 $show_signin_modal = false;
 $signin_modal_message = '';
-
-// Determine an identifier for this book. Prefer numeric id if available.
 $book_identifier = (int) ($book['id'] ?? 0);
 
 // Check whether comments table has a user_id column 
@@ -17,29 +14,65 @@ if ($colCheck && $colCheck->num_rows > 0) {
   $has_user_id = true;
 }
 
-// Handle favourite submission 
+// CREATE: Handle comment submission (new comment)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']) && !isset($_POST['update_comment'])) {
+  $comment_text = trim($_POST['comment']);
+  $book_id_post = (int) ($_POST['book_id'] ?? $book_identifier);
+
+  if ($comment_text === '') {
+    $post_error = '';
+  } elseif (empty($_SESSION['user_id'])) {
+    $post_error = 'You must be signed in to post a comment.';
+    $show_signin_modal = true;
+    $signin_modal_message = $post_error;
+  } else {
+    $user_id = (int) ($_SESSION['user_id'] ?? 0);
+    if ($has_user_id) {
+      $stmt = $connection->prepare("INSERT INTO comments (book_id, user_id, comment, created_at) VALUES (?, ?, ?, NOW())");
+      if ($stmt) {
+        $stmt->bind_param('iis', $book_id_post, $user_id, $comment_text);
+        if (!$stmt->execute()) {
+          $post_error = 'Database error: ' . htmlspecialchars($stmt->error);
+        }
+        $stmt->close();
+      } else {
+        $post_error = 'Database error: ' . htmlspecialchars($connection->error);
+      }
+    } else {
+      $stmt = $connection->prepare("INSERT INTO comments (book_id, comment, created_at) VALUES (?, ?, NOW())");
+      if ($stmt) {
+        $stmt->bind_param('is', $book_id_post, $comment_text);
+        if (!$stmt->execute()) {
+          $post_error = 'Database error: ' . htmlspecialchars($stmt->error);
+        }
+        $stmt->close();
+      } else {
+        $post_error = 'Database error: ' . htmlspecialchars($connection->error);
+      }
+    }
+  }
+}
+
+// CREATE/DELETE: Handle favourite toggle (adds if missing, removes if exists)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['favourite'])) {
   $book_id_post = (int) ($_POST['book_id'] ?? $book_identifier);
   if (empty($_SESSION['user_id'])) {
-    $post_error = 'You must be signed in to add favourites.';
+    $post_error = 'You must be signed in to modify favourites.';
     $show_signin_modal = true;
     $signin_modal_message = $post_error;
   } elseif ($book_id_post <= 0) {
     $post_error = 'Invalid book ID.';
   } else {
     $user_id = (int) $_SESSION['user_id'];
-
-    // READ: Check if the logged-in user has already favourited this book
-    // Returns 1 row if there is an existing favourite
+    
     $chk = $connection->prepare("SELECT id FROM favourites WHERE user_id = ? AND book_id = ? LIMIT 1");
     if ($chk) {
       $chk->bind_param('ii', $user_id, $book_id_post);
       $chk->execute();
       $chkRes = $chk->get_result();
       if ($chkRes && $chkRes->num_rows > 0) {
-
-        // DELETE: Remove an existing favourite
-        // Uses a prepared statement to delete by user_id & book_id
+        // Already favourited, so REMOVE
+        $chk->close();
         $del = $connection->prepare("DELETE FROM favourites WHERE user_id = ? AND book_id = ?");
         if ($del) {
           $del->bind_param('ii', $user_id, $book_id_post);
@@ -47,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['favourite'])) {
           $del->close();
         }
       } else {
-        // CREATE: Insert a new favourite (toggle on)
-        // Uses NOW() to set created_at; prepared statement protects from SQL injection
+        // Not yet favourited, so ADD
+        $chk->close();
         $ins = $connection->prepare("INSERT INTO favourites (user_id, book_id, created_at) VALUES (?, ?, NOW())");
         if ($ins) {
           $ins->bind_param('ii', $user_id, $book_id_post);
@@ -56,12 +89,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['favourite'])) {
           $ins->close();
         }
       }
-      $chk->close();
     }
   }
 }
 
-// Handle comment update
+// UPDATE: Handle comment update
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_comment'])) {
   $comment_id = (int) ($_POST['comment_id'] ?? 0);
   $comment_text = trim($_POST['comment'] ?? '');
@@ -78,14 +110,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_comment'])) {
   } else {
     $user_id = (int) $_SESSION['user_id'];
     
-    // Verify that the comment belongs to the current user
     $verify = $connection->prepare("SELECT id FROM comments WHERE id = ? AND user_id = ?");
     if ($verify) {
       $verify->bind_param('ii', $comment_id, $user_id);
       $verify->execute();
       $verifyRes = $verify->get_result();
       if ($verifyRes && $verifyRes->num_rows > 0) {
-        // UPDATE: Update the comment
         $update = $connection->prepare("UPDATE comments SET comment = ? WHERE id = ? AND user_id = ?");
         if ($update) {
           $update->bind_param('sii', $comment_text, $comment_id, $user_id);
@@ -104,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_comment'])) {
   }
 }
 
-// Handle comment deletion
+// DELETE: Handle comment deletion
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_comment'])) {
   $comment_id = (int) ($_POST['comment_id'] ?? 0);
   $book_id_post = (int) ($_POST['book_id'] ?? $book_identifier);
@@ -118,14 +148,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_comment'])) {
   } else {
     $user_id = (int) $_SESSION['user_id'];
     
-    // Verify that the comment belongs to the current user before deleting
     $verify = $connection->prepare("SELECT id FROM comments WHERE id = ? AND user_id = ?");
     if ($verify) {
       $verify->bind_param('ii', $comment_id, $user_id);
       $verify->execute();
       $verifyRes = $verify->get_result();
       if ($verifyRes && $verifyRes->num_rows > 0) {
-        // DELETE: Remove the comment
         $delete = $connection->prepare("DELETE FROM comments WHERE id = ? AND user_id = ?");
         if ($delete) {
           $delete->bind_param('ii', $comment_id, $user_id);
@@ -144,52 +172,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_comment'])) {
   }
 }
 
-// Handle comment submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']) && !isset($_POST['update_comment'])) {
-  $comment_text = trim($_POST['comment']);
-  $book_id_post = (int) ($_POST['book_id'] ?? $book_identifier);
-
-  if ($comment_text === '') {
-    $post_error = '';
-  } elseif (empty($_SESSION['user_id'])) {
-    $post_error = 'You must be signed in to post a comment.';
-    $show_signin_modal = true;
-    $signin_modal_message = $post_error;
-  } else {
-    $user_id = (int) ($_SESSION['user_id'] ?? 0);
-        if ($has_user_id) {
-          // CREATE: Insert a new comment with user_id
-            $stmt = $connection->prepare("INSERT INTO comments (book_id, user_id, comment, created_at) VALUES (?, ?, ?, NOW())");
-            if ($stmt) {
-                $stmt->bind_param('iis', $book_id_post, $user_id, $comment_text);
-                if (!$stmt->execute()) {
-                    $post_error = 'Database error: ' . htmlspecialchars($stmt->error);
-                }
-                $stmt->close();
-            } else {
-                $post_error = 'Database error: ' . htmlspecialchars($connection->error);
-            }
-        } else {
-            // CREATE: Insert a new comment without user_id (older schema fallback)
-            $stmt = $connection->prepare("INSERT INTO comments (book_id, comment, created_at) VALUES (?, ?, NOW())");
-            if ($stmt) {
-                $stmt->bind_param('is', $book_id_post, $comment_text);
-                if (!$stmt->execute()) {
-                    $post_error = 'Database error: ' . htmlspecialchars($stmt->error);
-                }
-                $stmt->close();
-            } else {
-                $post_error = 'Database error: ' . htmlspecialchars($connection->error);
-            }
-        }
-  }
-}
-
-// Fetch comments for this book (latest first). Left-join users to get commenter email.
+// READ: Fetch all comments for this book (latest first)
 $comments = [];
 if ($has_user_id) {
-  // READ: Fetch comments for this book (latest first). 
-  // If user_id is present in the comments table, LEFT JOIN to users to obtain the user's email.
   $stmt = $connection->prepare(
     "SELECT c.id, c.comment, c.created_at, c.user_id, u.email FROM comments c LEFT JOIN users u ON c.user_id = u.id WHERE c.book_id = ? ORDER BY c.created_at DESC"
   );
@@ -203,7 +188,6 @@ if ($has_user_id) {
     $stmt->close();
   }
 } else {
-  // READ: Fallback read for comments if user_id column is not present (simpler table).
   $stmt = $connection->prepare(
     "SELECT id, comment, created_at FROM comments WHERE book_id = ? ORDER BY created_at DESC"
   );
@@ -218,9 +202,9 @@ if ($has_user_id) {
   }
 }
 
+// READ: Check if the current user has favourited this book
 $is_favourite = false;
 if (!empty($_SESSION['user_id']) && $book_identifier > 0) {
-  // READ: If the user has favourited this book
   $chk = $connection->prepare("SELECT 1 FROM favourites WHERE user_id = ? AND book_id = ? LIMIT 1");
   if ($chk) {
     $uid = (int) $_SESSION['user_id'];

@@ -2,8 +2,9 @@
 if (session_status() === PHP_SESSION_NONE) {
    session_start();
 }
-$currentPage = basename($_SERVER['PHP_SELF']);   // just the file name
-$currentPath = $_SERVER['PHP_SELF'];             // includes folder path
+$currentPage = basename($_SERVER['PHP_SELF']);   
+$currentPath = $_SERVER['PHP_SELF'];
+         
 // Determine if user is signed in
 $is_logged_in = !empty($_SESSION['user_id']);
 ?>

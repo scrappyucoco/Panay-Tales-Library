@@ -19,6 +19,7 @@ main {
   justify-content: flex-start;
   flex-direction: column;
   align-items: center;
+  animation: fadeInScale 0.5s ease-out;
 }
 
 /* Navbar */
@@ -29,6 +30,7 @@ main {
   border-radius: 2rem;
   padding: 0.5rem 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.089);
+  animation: fadeInScale 0.5s ease-out;
 }
 
 .nav3-links {
@@ -64,6 +66,7 @@ main {
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
+  animation: fadeInScale 0.5s ease-out;
 }
 
 .searchBar input[type="text"] {
@@ -94,6 +97,7 @@ main {
   height: auto;
   width: auto;
   margin: 0 auto;
+  animation: fadeUp 0.5s ease-out 0.2s backwards;
 }
 
 #search-results {
@@ -108,9 +112,42 @@ main {
   border-radius: 8px;
   padding: 1rem;
   transition: opacity 0.4s ease;
+  animation: fadeUp 0.5s ease-out 0.2s backwards;
 }
 #search-results h2 {
   font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 1rem;
+}
+
+/* Animations */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }

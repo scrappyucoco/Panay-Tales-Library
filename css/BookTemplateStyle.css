@@ -1,5 +1,5 @@
 body {
-  background-color: oklch(97.356% 0.01586 58.432);
+  background-color: oklch(0% 0 0);
   width: auto;
   margin: 0;
   box-sizing: border-box;
@@ -13,6 +13,7 @@ body {
   width: 100vw;
   min-height: 100vh;
   overflow: visible;
+  animation: fadeInScale 0.5s ease-out;
 }
 
 .book-hero::before {
@@ -48,6 +49,7 @@ body {
   color: white;
   padding-left: 0;
   box-sizing: border-box;
+  animation: fadeUp 0.5s ease-out 0.2s backwards;
 }
 
 /* About Book*/
@@ -64,6 +66,7 @@ body {
   );
   padding: 2rem;
   box-sizing: border-box;
+  animation: fadeLeft 0.5s ease-out;
 }
 
 /* Book content*/
@@ -77,6 +80,7 @@ body {
   text-align: left;
   width: 37vw;;
   position: relative;
+  animation: fadeRight 0.5s ease-out;
 }
 
 /* Comments section*/
@@ -112,6 +116,7 @@ body {
   padding: 0.5rem;
   flex-wrap: nowrap;
   border-radius: 8px;
+  animation: fadeUp 0.5s ease-out 0.1s backwards;
 }
 
 .book-comments textarea {
@@ -139,6 +144,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  animation: fadeUp 0.5s ease-out 0.2s backwards;
 }
 
 /* individual comment */
@@ -153,6 +159,7 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   flex-direction: column;
   flex-wrap: nowrap;
+  animation: fadeUp 0.5s ease-out;
 }
 
 .single-comment:last-child { border-bottom: none; }
@@ -207,6 +214,7 @@ body {
   display: flex;
   gap: 1rem;
   align-items: flex-start;
+  animation: fadeLeft 0.5s ease-out 0.1s backwards;
 }
 
 .book-img-cover {
@@ -255,6 +263,7 @@ body {
   align-items: flex-start;
   margin: 0.4rem 0 0.8rem 0;
   gap: 0.25rem;
+  animation: fadeDown 0.5s ease-out 0.2s backwards;
 }
 
 .share-toggle {
@@ -334,6 +343,7 @@ body {
   top: 0;
   right: 0;
   left: 93%;
+  animation: fadeDown 0.5s ease-out 0.3s backwards;
 }
 
 .fav-btn {
@@ -366,6 +376,7 @@ body {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.22s ease, visibility 0.22s ease;
+  animation: fadeInScale 0.5s ease-out;
 }
 
 .signin-overlay.active {
@@ -496,22 +507,11 @@ body {
   flex-direction: column;
   gap: 0.5rem;
   width: 100%;
-  animation: slideDown 0.3s ease forwards;
+  animation: fadeUp 0.3s ease-out forwards;
 }
 
 .comment-edit-form:not([hidden]) {
   display: flex;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .edit-textarea {
@@ -597,7 +597,7 @@ body {
   padding: 0.5rem;
   border-radius: 4px;
   border: 1px solid rgba(244, 67, 54, 0.3);
-  animation: slideIn 0.3s ease forwards;
+  animation: fadeUp 0.3s ease-out forwards;
 }
 
 .comment-delete-form:not([hidden]) {
@@ -610,13 +610,48 @@ body {
   font-size: 0.9rem;
 }
 
-@keyframes slideIn {
+/* Animations */
+@keyframes fadeInScale {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeLeft {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeRight {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

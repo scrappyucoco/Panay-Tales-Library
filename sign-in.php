@@ -13,8 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($email) || empty($password)) {
         $error = 'Email and password are required.';
     } else {
-            // READ: Load the user record by email (id, email, hashed password)
-            // This is used for authentication — we look up the hashed password and call password_verify() later.
+            // READ: Load the user record by email.
             $stmt = $connection->prepare('SELECT id, email, password FROM users WHERE email = ?');
             if (!$stmt) {
                 $error = 'Database error: ' . htmlspecialchars($connection->error);
@@ -40,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,16 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <span class="toggle-password" onclick="togglePassword()">Show</span>
                         </div>
                     </div>
-                    
-                    <!--<div class="form-options">
-                        <label class="remember-me">
-                            <input type="checkbox" name="remember">
-                            <span>Remember me</span>
-                        </label>
-                        <a href="#" class="forgot-password">Forgot password?</a>
-                    </div>
-                    -->
-                    
                     <button type="submit" class="signin-btn">Sign In</button>
                 </form>
                 
@@ -105,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     
     <div class="signin-footer">
-        <p>By signing in, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></p>
+        <p>By signing in, you agree to our <a href="">Terms of Service</a> and <a href="">Privacy Policy</a></p>
     </div>
 
     <script>
