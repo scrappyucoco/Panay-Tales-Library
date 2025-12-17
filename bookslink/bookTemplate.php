@@ -14,6 +14,8 @@ if ($colCheck && $colCheck->num_rows > 0) {
   $has_user_id = true;
 }
 
+// ==================== COMMENTS ====================
+
 // CREATE: Handle comment submission (new comment)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']) && !isset($_POST['update_comment'])) {
   $comment_text = trim($_POST['comment']);
@@ -48,46 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']) && !isset(
         $stmt->close();
       } else {
         $post_error = 'Database error: ' . htmlspecialchars($connection->error);
-      }
-    }
-  }
-}
-
-// CREATE/DELETE: Handle favourite toggle (adds if missing, removes if exists)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['favourite'])) {
-  $book_id_post = (int) ($_POST['book_id'] ?? $book_identifier);
-  if (empty($_SESSION['user_id'])) {
-    $post_error = 'You must be signed in to modify favourites.';
-    $show_signin_modal = true;
-    $signin_modal_message = $post_error;
-  } elseif ($book_id_post <= 0) {
-    $post_error = 'Invalid book ID.';
-  } else {
-    $user_id = (int) $_SESSION['user_id'];
-    
-    $chk = $connection->prepare("SELECT id FROM favourites WHERE user_id = ? AND book_id = ? LIMIT 1");
-    if ($chk) {
-      $chk->bind_param('ii', $user_id, $book_id_post);
-      $chk->execute();
-      $chkRes = $chk->get_result();
-      if ($chkRes && $chkRes->num_rows > 0) {
-        // Already favourited, so REMOVE
-        $chk->close();
-        $del = $connection->prepare("DELETE FROM favourites WHERE user_id = ? AND book_id = ?");
-        if ($del) {
-          $del->bind_param('ii', $user_id, $book_id_post);
-          $del->execute();
-          $del->close();
-        }
-      } else {
-        // Not yet favourited, so ADD
-        $chk->close();
-        $ins = $connection->prepare("INSERT INTO favourites (user_id, book_id, created_at) VALUES (?, ?, NOW())");
-        if ($ins) {
-          $ins->bind_param('ii', $user_id, $book_id_post);
-          $ins->execute();
-          $ins->close();
-        }
       }
     }
   }
@@ -202,6 +164,48 @@ if ($has_user_id) {
   }
 }
 
+// ==================== FAVOURITES ====================
+
+// CREATE/DELETE: Handle favourite toggle
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['favourite'])) {
+  $book_id_post = (int) ($_POST['book_id'] ?? $book_identifier);
+  if (empty($_SESSION['user_id'])) {
+    $post_error = 'You must be signed in to modify favourites.';
+    $show_signin_modal = true;
+    $signin_modal_message = $post_error;
+  } elseif ($book_id_post <= 0) {
+    $post_error = 'Invalid book ID.';
+  } else {
+    $user_id = (int) $_SESSION['user_id'];
+    
+    $chk = $connection->prepare("SELECT id FROM favourites WHERE user_id = ? AND book_id = ? LIMIT 1");
+    if ($chk) {
+      $chk->bind_param('ii', $user_id, $book_id_post);
+      $chk->execute();
+      $chkRes = $chk->get_result();
+      if ($chkRes && $chkRes->num_rows > 0) {
+        // if already favourited, so REMOVE
+        $chk->close();
+        $del = $connection->prepare("DELETE FROM favourites WHERE user_id = ? AND book_id = ?");
+        if ($del) {
+          $del->bind_param('ii', $user_id, $book_id_post);
+          $del->execute();
+          $del->close();
+        }
+      } else {
+        // if not yet favourited, so ADD
+        $chk->close();
+        $ins = $connection->prepare("INSERT INTO favourites (user_id, book_id, created_at) VALUES (?, ?, NOW())");
+        if ($ins) {
+          $ins->bind_param('ii', $user_id, $book_id_post);
+          $ins->execute();
+          $ins->close();
+        }
+      }
+    }
+  }
+}
+
 // READ: Check if the current user has favourited this book
 $is_favourite = false;
 if (!empty($_SESSION['user_id']) && $book_identifier > 0) {
@@ -286,7 +290,7 @@ if (!empty($_SESSION['user_id']) && $book_identifier > 0) {
         <!-- Comments display section -->
         <div class="comSec">
           <?php if (empty($comments)): ?>
-            <p>No comments yet. Be the first to comment.</p>
+            <p id="no-comments-message">No comments yet. Be the first to comment.</p>
           <?php else: ?>
             <?php foreach ($comments as $c): ?>
               <?php 
@@ -354,6 +358,7 @@ if (!empty($_SESSION['user_id']) && $book_identifier > 0) {
 
 <script>
   window.isLoggedIn = <?php echo !empty($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+  window.currentUserId = <?php echo !empty($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : '0'; ?>;
   window.showSigninModalOnLoad = <?php echo ($show_signin_modal ? 'true' : 'false'); ?>;
   window.signinModalMessage = <?php echo json_encode($signin_modal_message ?: 'You must be signed in to proceed'); ?>;
 </script>

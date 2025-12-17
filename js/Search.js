@@ -13,7 +13,9 @@ searchInput.addEventListener('input', function() {
   }
 
   genresSection.style.display = 'none'; // hide genres while searching
-  searchResultsContainer.style.display = 'block';
+  if (searchResultsContainer.style.display !== 'block') {
+    searchResultsContainer.style.display = 'block';
+  }
 
   const filtered = books.filter(book =>
     book.title.toLowerCase().includes(query) ||
