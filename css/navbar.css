@@ -1,3 +1,8 @@
+
+#signinbtn {
+  color: white
+}
+
 /* Navbar container */
 .navbar-background {
   background-color: #fdfdfd;
@@ -31,7 +36,6 @@
   align-items: center;
 }
 
-
 /* Sign-in button style */
 .nav-links a.sign-in {
   background-color: #ff6600;
@@ -52,15 +56,9 @@
 /* Active state for sign-in */
 .nav-links a.sign-in.active-page {
   background-color: #dd3f00;
-  border: none; /* remove underline effect */
+  border: none; 
   pointer-events: none;
 }
-
-/* Search form inside navbar */
-/* Removed nav bar search (moved to More Tales section) */
-
-/* accessible helper (visually hidden) */
-
 
 /* Default link style */
 .nav-links a {

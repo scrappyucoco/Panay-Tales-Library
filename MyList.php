@@ -4,18 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Favourites</title>
+  <link rel="icon" type="image/png" href="/panay-tales-library/images/book-button.png">
   <link rel="stylesheet" href="css/MyList.css">
-    <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/Books-navbar3.css">
   <link rel="stylesheet" href="css/BookTemplateStyle.css">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
   <?php include 'navbar.php'; ?>
-      <?php include 'booksData.php'; ?>
+  <?php include 'booksData.php'; ?>
 
   <?php
     // show user's favourites (move from book template)
@@ -27,7 +28,6 @@
     if (!empty($_SESSION['user_id'])) {
       $uid = (int) $_SESSION['user_id'];
 // READ: Fetch the current user's favourites, joined to the books table to obtain title/cover/link.
-// We order by favourites.created_at DESC to show newest favourites first.
 $favStmt = $connection->prepare(
   "SELECT f.book_id, b.title, b.cover_image, b.link FROM favourites f JOIN books b ON f.book_id = b.books_id WHERE f.user_id = ? ORDER BY f.created_at DESC"
 );
@@ -67,7 +67,7 @@ $favStmt = $connection->prepare(
       </div>
 
 
-      <div class="searchContainer">
+    <div class="searchContainer">
       <div id="search-results"></div>
 
       <?php if (!empty($user_favourites)): ?>
@@ -89,7 +89,7 @@ $favStmt = $connection->prepare(
         </section>
       <?php endif; ?>
 
-</div>  
+    </div>  
 
 </main>
 
@@ -170,6 +170,18 @@ $favStmt = $connection->prepare(
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   transform-origin: center;
   overflow: hidden;
+  position: relative;
+}
+
+.fav-cover::after {
+  content: '❤';
+  position: absolute;
+  top: 0;
+  right: 0.4rem;
+  font-size: 1.4rem;
+  color: #ffffffff;
+  z-index: 10;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Title overlay */

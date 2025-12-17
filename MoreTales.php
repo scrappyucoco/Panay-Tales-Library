@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>More Tales</title>
+  
+  <link rel="icon" type="image/png" href="/panay-tales-library/images/book-button.png">
   <link rel="stylesheet" href="css/MoreTales.css">
-    <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/Books-navbar2.css">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <script src="transition.js"defer></script>
   </head>
 

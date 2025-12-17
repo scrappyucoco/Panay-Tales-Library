@@ -11,12 +11,10 @@ $isLoggedIn = isset($_SESSION['user_id']);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Featured</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Intel+One+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Stylesheets -->
+  <link rel="icon" type="image/png" href="/panay-tales-library/images/book-button.png">
   <link rel="stylesheet" href="css/Books.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/BooksPage2.css">

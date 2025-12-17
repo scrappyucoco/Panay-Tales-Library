@@ -6,7 +6,7 @@
 
 $host = 'localhost';
 $user = 'root';
-$pass = 'ItcPasswordSQL2';
+$pass = 'SQLPassword1813'; // Change to your MySQL root password
 $db   = 'panaytalesdb';
 $port = 3306; // Change to 3307 if your MySQL uses 3307
 

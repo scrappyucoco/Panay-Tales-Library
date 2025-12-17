@@ -31,12 +31,12 @@ $is_logged_in = !empty($_SESSION['user_id']);
 
       <?php if ($is_logged_in): ?>
          <a href="<?php echo (strpos($currentPath, '/bookslink/') !== false) ? '../logout.php' : 'logout.php'; ?>" 
-             class="sign-in">
+             id="signinbtn" class="sign-in">
              Sign-out
          </a>
       <?php else: ?>
          <a href="<?php echo (strpos($currentPath, '/bookslink/') !== false) ? '../sign-in.php' : 'sign-in.php'; ?>" 
-             class="sign-in <?php if($currentPage=='sign-in.php'){echo 'active-page';} ?>">
+             id="signinbtn" class="sign-in <?php if($currentPage=='sign-in.php'){echo 'active-page';} ?>">
              Sign-in
          </a>
       <?php endif; ?>
