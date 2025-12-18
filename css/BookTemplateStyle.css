@@ -180,7 +180,7 @@ body {
     color: #f1f1f1;
     margin: 0;
     white-space: pre-wrap;
-    line-height: 0.6;
+    line-height: 1;
     margin-bottom: 0.6rem;
     margin-top: 0.6rem;
 }

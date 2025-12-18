@@ -16,7 +16,7 @@ if ($colCheck && $colCheck->num_rows > 0) {
 
 // ==================== COMMENTS ====================
 
-// CREATE: Handle comment submission (new comment)
+// CREATE: Handle comment submission 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment']) && !isset($_POST['update_comment'])) {
   $comment_text = trim($_POST['comment']);
   $book_id_post = (int) ($_POST['book_id'] ?? $book_identifier);
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_comment'])) {
   }
 }
 
-// READ: Fetch all comments for this book (latest first)
+// READ: Fetch all comments for this book
 $comments = [];
 if ($has_user_id) {
   $stmt = $connection->prepare(
